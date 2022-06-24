@@ -1,21 +1,27 @@
-package zad1;
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+    private static final DecimalFormat df = new DecimalFormat("0.0");
 
     public static void main(String[] args) {
-        ArrayList<Figure> figury = new ArrayList<>();
-        figury.add(new Figure("Figure A"));
-        figury.add(new Rectangle("Rectangle A", 10, 4));
-        figury.add(new Sphere("Sphere A", 2));
-        figury.add(new Rectangle("Rectangle B", 2, 3));
-        figury.add(new Sphere("Sphere B", 9));
-        figury.add(new Rectangle("Rectangle C", 9, 10));
-
-        System.out.println("Figures:");
-        for(Figure f : figury) {
-            System.out.println(f);
-        }
+        List<Function> functions = new ArrayList<>();
+        functions.add(new LinearFunction(2, 4));
+        functions.add(new SquareFunction(2, 0, -2.5));
+        functions.add(new AbsoluteLinearFunction(2, 4));
+        List<Fun> funList = new ArrayList<>(functions);
+        System.out.println("Original functions");
+        funList.forEach(f ->
+                System.out.println(df.format(Fun.minimum(f, -4, 0, 0.1))));
+        functions.forEach(f -> f.increaseCoefficientsBy(1.2));
+        System.out.println("Functions increased by 1.2");
+        funList.forEach(f ->
+                System.out.println(df.format(Fun.minimum(f, -4, 0, 0.1))));
+        functions.forEach(f -> f.decreaseCoefficientsBy(1.2));
+        System.out.println("Functions decreased by 1.2");
+        funList.forEach(f ->
+                System.out.println(df.format(Fun.minimum(f, -4, 0, 0.1))));
     }
 }
+
